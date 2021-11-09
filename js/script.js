@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
    // Timer
-   const deadLine = '2021-11-01';
+   const deadLine = '2021-12-15';
 
    // Разница между deadLine и нашим текущим временем
    function getTimeRemaining(endtime) {
@@ -94,6 +94,39 @@ document.addEventListener('DOMContentLoaded', () => {
    setClock('.timer', deadLine);
    
 
+   // Modal
+
+   const modalTrigger = document.querySelectorAll('[data-modal]'),
+       modal = document.querySelector('.modal'),
+       modalCloseBtn = document.querySelector('[data-close]');
+
+   modalTrigger.forEach(item => {
+      item.addEventListener('click', () => {
+         modal.classList.add('show');
+         modal.classList.remove('hide');
+         document.body.style.overflow = 'hidden';
+      });
+   });
+
+   function closeModal() {
+      modal.classList.remove('show');
+      modal.classList.add('hide');
+      document.body.style.overflow = '';
+   }
+
+   modalCloseBtn.addEventListener('click', closeModal);
+
+   modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+         closeModal();
+      }
+   });
+
+   document.addEventListener('keydown', (e) =>{
+      if (e.code === 'Escape' && modal.classList.contains('show')){
+         closeModal();
+      }
+   });
 
 
 
