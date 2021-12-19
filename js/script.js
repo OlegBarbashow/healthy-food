@@ -252,21 +252,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
            const formData = new FormData(form);
 
-           // const object = {};
-           // formData.forEach((value, key) => {
-           //    object[key] = value;
-           // });
-
-           // request.send(formData);
-
-            // const json = JSON.stringify(object);
+           const object = {};
+           formData.forEach((value, key) => {
+              object[key] = value;
+           });
 
             fetch('server.php', {
                 method: "POST",
-                body: formData
-                // headers: {
-                //     'Content-type': 'application/json'
-                // }
+                headers: {
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify(object)
             }).then(data => data.text()
             ).then((data) => {
                 console.log(data);
@@ -277,17 +273,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 form.reset();
                 statusMessage.remove();
             });
-
-           // request.addEventListener('load', () => {
-           //    if (request.status === 200) {
-           //        console.log(request.response);
-           //        showThanksModal(message.success);
-           //        form.reset();
-           //        statusMessage.remove();
-           //    } else {
-           //        showThanksModal(message.failure);
-           //    }
-           // });
         });
     }
     
@@ -313,35 +298,4 @@ document.addEventListener('DOMContentLoaded', () => {
             closeModal();
         }, 4000);
     }
-
-    fetch('https://jsonplaceholder.typicode.com/posts', {
-        method: "POST",
-        body: JSON.stringify({name: 'Alex'}),
-        headers: {
-            'Content-type': 'application/json'
-        }
-    })
-        .then(response => response.json())
-        .then(json => console.log(json))
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 });
