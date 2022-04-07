@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     // Timer
-    const deadLine = '2021-12-15';
+    const deadLine = '2022-05-15';
 
     // Разница между deadLine и нашим текущим временем
     function getTimeRemaining(endtime) {
@@ -419,5 +419,86 @@ document.addEventListener('DOMContentLoaded', () => {
        });
     });
 
+
+    // Calc
+    const result = document.querySelector('.calculating__result span');
+    let sex = 'female', ratio = 1.375, height, weight, age;
+    
+    function calcTotal() {
+        if (!sex || !ratio || !height || !weight || !age) {
+            result.textContent = '___';
+            return;
+        }
+
+        if (sex === 'female') {
+            result.textContent =  Math.round((447.6 + (9.2 * weight) + (3.1 * height) - (4.3 * age)) * ratio);
+        } else {
+            result.textContent = Math.round((88.36 + (13.4 * weight) + (4.8 * height) - (5.7 * age)) * ratio);
+        }
+    }
+
+    calcTotal();
+    
+    function getStaticInformation(parentSelector, activeClass) {
+        const elements = document.querySelectorAll(`${parentSelector} div`);
+
+        elements.forEach(elem => {
+            elem.addEventListener('click', () => {
+                if (elem.getAttribute('data-ratio')) {
+                    ratio = +elem.getAttribute('data-ratio');
+                } else {
+                    sex = elem.getAttribute('id');
+                }
+
+                elements.forEach(element => {
+                    element.classList.remove(activeClass);
+                });
+                elem.classList.add(activeClass);
+
+                calcTotal();
+            });
+        });
+    }
+
+    getStaticInformation('#gender', 'calculating__choose-item_active');
+    getStaticInformation('.calculating__choose_big', 'calculating__choose-item_active');
+
+    function getDynamicInformation(selector) {
+        const input = document.querySelector(selector);
+
+         input.addEventListener('input', () => {
+            switch (input.getAttribute('id')){
+                case 'height':
+                    height = +input.value;
+                    break;
+                case 'weight':
+                    weight = +input.value;
+                    break;
+                case 'age':
+                    age = +input.value;
+                    break;
+            }
+            calcTotal();
+        });
+    }
+
+    getDynamicInformation('#height');
+    getDynamicInformation('#weight');
+    getDynamicInformation('#age');
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
 });
