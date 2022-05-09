@@ -1,7 +1,4 @@
-function timer() {
-    const deadLine = '2022-05-15';
-
-    // Разница между deadLine и нашим текущим временем
+function timer(id, deadLine) {
     function getTimeRemaining(endtime) {
         const total = Date.parse(deadLine) - Date.parse(new Date()),
             days = Math.floor(total / (1000 * 60 * 60 * 24)),
@@ -50,7 +47,7 @@ function timer() {
         }
     }
 
-    setClock('.timer', deadLine);
+    setClock(id, deadLine);
 }
 
 export default timer;
