@@ -1,6 +1,6 @@
-function slider({container, slide, nextArrow, prewArrow, totalCounter, currentCounter, wrapper, field}) {
+function slider({container, slide, nextArrow, prevArrow, totalCounter, currentCounter, wrapper, field}) {
     const next = document.querySelector(nextArrow),
-        prev = document.querySelector(prewArrow),
+        prev = document.querySelector(prevArrow),
         slides = document.querySelectorAll(slide),
         total = document.querySelector(totalCounter),
         current = document.querySelector(currentCounter),
@@ -108,7 +108,7 @@ function slider({container, slide, nextArrow, prewArrow, totalCounter, currentCo
 
     dots.forEach(dot => {
         dot.addEventListener('click', (e) => {
-            const slideTo = e.target.getAttribute('data-slide-to');
+            const slideTo = +e.target.getAttribute('data-slide-to');
             slideIndex = slideTo;
             offset = deleteNotDigits(width) * (slideTo -1);
             slidesField.style.transform = `translateX(-${offset}px)`;
